@@ -52,7 +52,7 @@ class TmuxRenderer(Renderer):
 				tmux_attrs += ['fg=default']
 			else:
 				if term_truecolor:
-					hex_code = "{0:06x}".format(fg[1])
+					hex_code = "#{0:06x}".format(int(fg[1]))
 					tmux_attrs += ['fg=' + hex_code]
 				else:
 					tmux_attrs += ['fg=colour' + str(fg[0])]
@@ -61,7 +61,7 @@ class TmuxRenderer(Renderer):
 				tmux_attrs += ['bg=default']
 			else:
 				if term_truecolor:
-					hex_code = "{0:06x}".format(bg[1])
+					hex_code = "#{0:06x}".format(int(bg[1]))
 					tmux_attrs += ['bg=' + hex_code]
 				else:
 					tmux_attrs += ['bg=colour' + str(bg[0])]
