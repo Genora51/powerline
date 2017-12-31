@@ -30,6 +30,7 @@ class TmuxRenderer(Renderer):
 
 	character_translations = Renderer.character_translations.copy()
 	character_translations[ord('#')] = '##[]'
+	term_escape_style = 'auto'
 	
 	def do_render(self, segment_info, **kwargs):
 		if self.term_escape_style == 'auto':
