@@ -33,13 +33,6 @@ class TmuxRenderer(Renderer):
 	term_escape_style = 'auto'
 
 	def render(self, width=None, segment_info={}, **kwargs):
-		if self.term_escape_style == 'auto':
-			if segment_info['environ'].get('TERM') == 'fbterm':
-				self.used_term_escape_style = 'fbterm'
-			else:
-				self.used_term_escape_style = 'xterm'
-		else:
-			self.used_term_escape_style = self.term_escape_style
 		if width and segment_info:
 			width -= segment_info.get('width_adjust', 0)
 			if width < 10:
@@ -53,8 +46,7 @@ class TmuxRenderer(Renderer):
 			return ''
 		tmux_attrs = []
 		# Is truecolor supported?
-		is_fbterm = self.used_term_escape_style == 'fbterm'
-		term_truecolor = not is_fbterm and self.term_truecolor
+		term_truecolor = self.term_truecolor
 		if fg is not None:
 			if fg is False or fg[0] is False:
 				tmux_attrs += ['fg=default']
