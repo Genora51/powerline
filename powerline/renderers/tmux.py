@@ -31,8 +31,8 @@ class TmuxRenderer(Renderer):
 	character_translations = Renderer.character_translations.copy()
 	character_translations[ord('#')] = '##[]'
 	term_escape_style = 'auto'
-	
-	def do_render(self, segment_info, **kwargs):
+
+	def render(self, width=None, segment_info={}, **kwargs):
 		if self.term_escape_style == 'auto':
 			if segment_info['environ'].get('TERM') == 'fbterm':
 				self.used_term_escape_style = 'fbterm'
@@ -40,9 +40,6 @@ class TmuxRenderer(Renderer):
 				self.used_term_escape_style = 'xterm'
 		else:
 			self.used_term_escape_style = self.term_escape_style
-		return super(TmuxRenderer, self).do_render(segment_info=segment_info, **kwargs)
-
-	def render(self, width=None, segment_info={}, **kwargs):
 		if width and segment_info:
 			width -= segment_info.get('width_adjust', 0)
 			if width < 10:
